@@ -27,7 +27,14 @@ const move: any = (spot: string, dir: 'up' | 'down' | 'right' | 'left', amount: 
   return newSpot;
 }
 
-move('1a', 'right', 3);
+//move('1a', 'right', 3);
+//
+const Pawn = (spot: string, state: object, firstmove: boolean) => {
+  if (firstmove) {
+    
+  }
+}
+
 
 const Highlighter = (id: string, State: object) => {
   
