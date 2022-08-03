@@ -74,10 +74,22 @@ const initialState: any = {
 }
 
 
-useState: 
-  -> the initialState
-  -> chnage the state based o
 
+movs: 
+  -> Pawn:
+    -> 2 up 
+    -> 1 up
+  -> King
+    -> 1up, 1down, 1upright, 1upleft, 1downright, 1downleft, 1left, 1right
+  -> Queen
+    -> inf
+  -> Rook
+   -> infUp, infDown, inRight, infLeft
+  -> Bishop
+    -> infUpleft, infUpright, infDownright, infDownleft
+  -> Knight 
+    -> up up right, up up left
+    -> down down right, down down left
 
 
 
