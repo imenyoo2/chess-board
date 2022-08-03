@@ -1,0 +1,97 @@
+- [x] make the divs clickable
+- [x] make the block highlight when clicked
+- [ ] create a useState for the state of the board
+- [ ] replace the new useState with the initialPositions obj
+- [ ] design a system for the movments of the peices
+- [ ] 
+
+
+const initialState: any = {
+  '1a': {color: 'White', type:'Rook'},
+  '1b': {color: 'White', type:'Knight'},
+  '1c': {color: 'White', type:'Bishop'},
+  '1d': {color: 'White', type:'Queen'},
+  '1e': {color: 'White', type:'King'},
+  '1f': {color: 'White', type:'Bishop'},
+  '1g': {color: 'White', type:'Knight'},
+  '1h': {color: 'White', type:'Rook'},
+  '2a': {color: 'White', type:'Pawn'},
+  '2b': {color: 'White', type:'Pawn'},
+  '2c': {color: 'White', type:'Pawn'},
+  '2d': {color: 'White', type:'Pawn'},
+  '2e': {color: 'White', type:'Pawn'},
+  '2f': {color: 'White', type:'Pawn'},
+  '2g': {color: 'White', type:'Pawn'},
+  '2h': {color: 'White', type:'Pawn'},
+  '3a': null,
+  '3b': null,
+  '3c': null,
+  '3d': null,
+  '3e': null,
+  '3f': null,
+  '3g': null,
+  '3h': null,
+  '4a': null,
+  '4b': null,
+  '4c': null,
+  '4d': null,
+  '4e': null,
+  '4f': null,
+  '4g': null,
+  '4h': null,
+  '5a': null,
+  '5b': null,
+  '5c': null,
+  '5d': null,
+  '5e': null,
+  '5f': null,
+  '5g': null,
+  '5h': null,
+  '6a': null,
+  '6b': null,
+  '6c': null,
+  '6d': null,
+  '6e': null,
+  '6f': null,
+  '6g': null,
+  '6h': null,
+  '7a': {color: 'Black', type:'Pawn'},
+  '7b': {color: 'Black', type:'Pawn'},
+  '7c': {color: 'Black', type:'Pawn'},
+  '7d': {color: 'Black', type:'Pawn'},
+  '7e': {color: 'Black', type:'Pawn'},
+  '7f': {color: 'Black', type:'Pawn'},
+  '7g': {color: 'Black', type:'Pawn'},
+  '7h': {color: 'Black', type:'Pawn'},
+  '8a': {color: 'Black', type:'Rook'},
+  '8b': {color: 'Black', type:'Knight'},
+  '8c': {color: 'Black', type:'Bishop'},
+  '8d': {color: 'Black', type:'Queen'},
+  '8e': {color: 'Black', type:'King'},
+  '8f': {color: 'Black', type:'Bishop'},
+  '8g': {color: 'Black', type:'Knight'},
+  '8h': {color: 'Black', type:'Rook'},
+}
+
+
+useState: 
+  -> the initialState
+  -> chnage the state based o
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
