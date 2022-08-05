@@ -14,9 +14,11 @@ import { ReactComponent as WhiteKnight } from '../svgs/WhiteKnight.svg';
 import { ReactComponent as BlackPawn } from '../svgs/BlackPawn.svg';
 import { ReactComponent as WhitePawn } from '../svgs/WhitePawn.svg';
 
+
 type ComponentType = React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
     title?: string | undefined;
 }>
+
 
 
 type ComponentsType = {
@@ -51,18 +53,18 @@ const components: any = {
 };
 
 type PropType = {
-  spotColor: 'White' | 'Black'
+  spotColor: 'White' | 'Black',
   color?: 'White' | 'Black',
-  type?: 'King' | 'Queen' | 'Rook' | 'Bishop' | 'Knight' | 'Pawn'
-  highlighted?: boolean;
-  handleClick?: () => void;
+  type: 'King' | 'Queen' | 'Rook' | 'Bishop' | 'Knight' | 'Pawn' | null,
+  highlighted?: boolean,
+  handleClick?: () => void,
 }
 
 const Peice = ({spotColor, color, type, highlighted, handleClick}: PropType) => {
   if (type){
     return <a onClick={handleClick}><div className={'spot '+spotColor+(highlighted?' highlighted':'')}>{components[color+type]}</div></a>
   } else {
-    return <div className={'spot '+spotColor}></div>
+    return <div className={'spot '+spotColor+(highlighted?' highlighted':'')}></div>
   }
 }
 

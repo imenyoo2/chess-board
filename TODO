@@ -7,22 +7,22 @@
 
 
 const initialState: any = {
-  '1a': {color: 'White', type:'Rook'},
-  '1b': {color: 'White', type:'Knight'},
-  '1c': {color: 'White', type:'Bishop'},
-  '1d': {color: 'White', type:'Queen'},
-  '1e': {color: 'White', type:'King'},
-  '1f': {color: 'White', type:'Bishop'},
-  '1g': {color: 'White', type:'Knight'},
-  '1h': {color: 'White', type:'Rook'},
-  '2a': {color: 'White', type:'Pawn'},
-  '2b': {color: 'White', type:'Pawn'},
-  '2c': {color: 'White', type:'Pawn'},
-  '2d': {color: 'White', type:'Pawn'},
-  '2e': {color: 'White', type:'Pawn'},
-  '2f': {color: 'White', type:'Pawn'},
-  '2g': {color: 'White', type:'Pawn'},
-  '2h': {color: 'White', type:'Pawn'},
+  '1a': {color: 'White', type:'Rook', highlighted: false},
+  '1b': {color: 'White', type:'Knight', highlighted: false},
+  '1c': {color: 'White', type:'Bishop', highlighted: false},
+  '1d': {color: 'White', type:'Queen', highlighted: false},
+  '1e': {color: 'White', type:'King', highlighted: false},
+  '1f': {color: 'White', type:'Bishop', highlighted: false},
+  '1g': {color: 'White', type:'Knight', highlighted: false},
+  '1h': {color: 'White', type:'Rook', highlighted: false},
+  '2a': {color: 'White', type:'Pawn', highlighted: false},
+  '2b': {color: 'White', type:'Pawn', highlighted: false},
+  '2c': {color: 'White', type:'Pawn', highlighted: false},
+  '2d': {color: 'White', type:'Pawn', highlighted: false},
+  '2e': {color: 'White', type:'Pawn', highlighted: false},
+  '2f': {color: 'White', type:'Pawn', highlighted: false},
+  '2g': {color: 'White', type:'Pawn', highlighted: false},
+  '2h': {color: 'White', type:'Pawn', highlighted: false},
   '3a': null,
   '3b': null,
   '3c': null,
@@ -55,22 +55,22 @@ const initialState: any = {
   '6f': null,
   '6g': null,
   '6h': null,
-  '7a': {color: 'Black', type:'Pawn'},
-  '7b': {color: 'Black', type:'Pawn'},
-  '7c': {color: 'Black', type:'Pawn'},
-  '7d': {color: 'Black', type:'Pawn'},
-  '7e': {color: 'Black', type:'Pawn'},
-  '7f': {color: 'Black', type:'Pawn'},
-  '7g': {color: 'Black', type:'Pawn'},
-  '7h': {color: 'Black', type:'Pawn'},
-  '8a': {color: 'Black', type:'Rook'},
-  '8b': {color: 'Black', type:'Knight'},
-  '8c': {color: 'Black', type:'Bishop'},
-  '8d': {color: 'Black', type:'Queen'},
-  '8e': {color: 'Black', type:'King'},
-  '8f': {color: 'Black', type:'Bishop'},
-  '8g': {color: 'Black', type:'Knight'},
-  '8h': {color: 'Black', type:'Rook'},
+  '7a': {color: 'Black', type:'Pawn', highlighted: false},
+  '7b': {color: 'Black', type:'Pawn', highlighted: false},
+  '7c': {color: 'Black', type:'Pawn', highlighted: false},
+  '7d': {color: 'Black', type:'Pawn', highlighted: false},
+  '7e': {color: 'Black', type:'Pawn', highlighted: false},
+  '7f': {color: 'Black', type:'Pawn', highlighted: false},
+  '7g': {color: 'Black', type:'Pawn', highlighted: false},
+  '7h': {color: 'Black', type:'Pawn', highlighted: false},
+  '8a': {color: 'Black', type:'Rook', highlighted: false},
+  '8b': {color: 'Black', type:'Knight', highlighted: false},
+  '8c': {color: 'Black', type:'Bishop', highlighted: false},
+  '8d': {color: 'Black', type:'Queen', highlighted: false},
+  '8e': {color: 'Black', type:'King', highlighted: false},
+  '8f': {color: 'Black', type:'Bishop', highlighted: false},
+  '8g': {color: 'Black', type:'Knight', highlighted: false},
+  '8h': {color: 'Black', type:'Rook', highlighted: false},
 }
 
 
@@ -96,11 +96,21 @@ movs:
 
 
 
+** i should re-write the whole thing and use oop insted
+
+const unhighlight = highlightedSpots.reduce((ac: any, item: any) => {
+  ac[item] = {...State[item], highlighted: false}
+  return ac
+}
+const highlight = highlightSpots.reduce((ac: any, item: any) => {
+  ac[item] = {...State[item], highlighted: !State[id].highlighted}
+  return ac
+})
 
 
 
-
-
+2e
+4c
 
 
 
