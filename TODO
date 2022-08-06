@@ -114,15 +114,23 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [ ] move the Board function to another file
 - [ ] change the move function in highlighter to be able to deal with
       black peices
-- [ ] fix the Knight bug
-- [ ] fix the Pawn bug
-- [ ] make the black Pawns clickable
+- [x] fix the Knight bug
+- [x] fix the Pawn bug
+- [x] make the pawn's firstmove change after the first move
+- [x] make the black Pawns clickable
+- [x] fix the black peices highlighting bug
+- [x] make black Knight clickable 
+- [ ] make the black king functional
 
 
 
-
-
-
+## bug reports
+- problems with highlighting when clicking a white peice that
+  highlight a black peice and then clicking a black peice
+- the black Rook can skip the a black peice that is blow it
+- black queen can't go back to it original place
+- black queen can skip black peices
+- black bishop highlight black peices (can eat them)
 
 
 

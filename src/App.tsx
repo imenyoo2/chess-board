@@ -15,13 +15,13 @@ const initialState: any = {
   "1g": { color: "White", type: "Knight", highlighted: false },
   "1h": { color: "White", type: "Rook", highlighted: false },
   "2a": { type: null, highlighted: false },
-  "2b": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
-  "2c": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
-  "2d": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
+  "2b": { color: "White", type: "Pawn", highlighted: false },
+  "2c": { color: "White", type: "Pawn", highlighted: false },
+  "2d": { color: "White", type: "Pawn", highlighted: false },
   "2e": { type: null, highlighted: false },
-  "2f": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
-  "2g": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
-  "2h": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
+  "2f": { color: "White", type: "Pawn", highlighted: false },
+  "2g": { color: "White", type: "Pawn", highlighted: false },
+  "2h": { color: "White", type: "Pawn", highlighted: false },
   "3a": { type: null, highlighted: false },
   "3b": { type: null, highlighted: false },
   "3c": { type: null, highlighted: false },
@@ -54,14 +54,14 @@ const initialState: any = {
   "6f": { type: null, highlighted: false },
   "6g": { type: null, highlighted: false },
   "6h": { type: null, highlighted: false },
-  "7a": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7b": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7c": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7d": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7e": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7f": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7g": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
-  "7h": { color: "Black", type: "Pawn", highlighted: false, firstmove: true },
+  "7a": { color: "Black", type: "Pawn", highlighted: false },
+  "7b": { color: "Black", type: "Pawn", highlighted: false },
+  "7c": { color: "Black", type: "Pawn", highlighted: false },
+  "7d": { color: "Black", type: "Pawn", highlighted: false },
+  "7e": { color: "Black", type: "Pawn", highlighted: false },
+  "7f": { color: "Black", type: "Pawn", highlighted: false },
+  "7g": { color: "Black", type: "Pawn", highlighted: false },
+  "7h": { color: "Black", type: "Pawn", highlighted: false },
   "8a": { color: "Black", type: "Rook", highlighted: false },
   "8b": { color: "Black", type: "Knight", highlighted: false },
   "8c": { color: "Black", type: "Bishop", highlighted: false },
@@ -73,10 +73,12 @@ const initialState: any = {
 };
 
 let unhighlightSpots: any = [];
-let ClickedSpot = '';
+let ClickedSpot = "";
 
 function App() {
   const [State, setState] = React.useState(initialState);
+
+  // to change the firstmove property
 
   // handles the clicks coming from the taken spots and calls the Highlighter
   const handleClick = (id: string) => {
@@ -88,6 +90,7 @@ function App() {
       return ac;
     }, {});
 
+    // the condition of clicking the same peice again
     if (
       highlightSpots.every((item: any) =>
         unhighlightSpots.some(
@@ -95,6 +98,7 @@ function App() {
         )
       )
     ) {
+      // generating the objs of highlighted peices
       highlight = highlightSpots.reduce((ac: any, item: any) => {
         ac[item] = { ...State[item], highlighted: !State[item].highlighted };
         return ac;
@@ -103,35 +107,40 @@ function App() {
 
     // check if the unhighlighted spots (else is the initial state)
     if (
-      unhighlightSpots.length != 0 &&
-      !unhighlightSpots.some((elem: string) => id == elem)
+      unhighlightSpots.length != 0
     ) {
+      // filtering the peices that should be highlighted from unhighlightSpots
       unhighlightSpots = unhighlightSpots.filter(
         (spot: string) => !highlightSpots.some((item: string) => item == spot)
       );
+
+      // generating the objs of unhighlighted peices
       const unhighlight = unhighlightSpots.reduce((ac: any, item: any) => {
         //this should unhighlight the highlighted element
         ac[item] = { ...State[item], highlighted: false };
         return ac;
       }, {});
+      console.log(unhighlight);
 
       //changing the state
       setState({ ...State, ...highlight, ...unhighlight });
     } else {
       setState({ ...State, ...highlight });
     }
-    unhighlightSpots = [...highlightSpots]; // set the next unhighlightSpot
+    unhighlightSpots = [...highlightSpots]; // update the next unhighlightSpots
     ClickedSpot = id; // set the clicked spot to use it for the Old arg
-
   };
 
   const handleMove = (New: string) => {
     setState(Mover(ClickedSpot, New, State, unhighlightSpots));
   };
-  return <Board State={State} handleClick={handleClick} handleMove={handleMove} />;
+
+  return (
+    <Board State={State} handleClick={handleClick} handleMove={handleMove} />
+  );
 }
 
-function Board({ State, handleClick, handleMove}: any) {
+function Board({ State, handleClick, handleMove }: any) {
   const squirs: any = [];
   let j = true;
   let x = "abcdefgh".split("");

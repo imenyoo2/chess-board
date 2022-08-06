@@ -9,7 +9,7 @@ const move: any = (
   let x = "abcdefgh";
   let y = "12345678";
   let newSpot: any = spot; // set to any because type script throw an error when
-                           // when we do newSpot[0]
+  // when we do newSpot[0]
   let index = 0;
   for (let i = 0; i < amount; i++) {
     switch (dir) {
@@ -42,15 +42,15 @@ const move: any = (
 //move('1a', 'right', 3);
 
 // pawn -----------------
-const Pawn = (spot: string, firstmove: boolean) => {
+const Pawn = (spot: string, op: "up" | "down", initLine: '2'|'7') => {
   let hilightSpots = [];
-  if (firstmove) {
-    hilightSpots.push(move(spot, "up", 1));
-    hilightSpots.push(move(spot, "up", 2));
-  } else {
-    hilightSpots.push(move(spot, "up", 1));
-  }
   hilightSpots.push(spot);
+  if (spot[0] == initLine) {
+    hilightSpots.push(move(spot, op, 1));
+    hilightSpots.push(move(spot, op, 2));
+  } else {
+    hilightSpots.push(move(spot, op, 1));
+  }
   return hilightSpots;
 };
 
@@ -216,29 +216,57 @@ const Rook = (spot: string) => {
   hilightSpots = [];
 
   return lines;
-
-}
-
-
+};
 
 const Highlighter = (id: string, State: object) => {
-  let newState: any = { ...State };
+  let newState: any = State;
   let hilightSpots: string[] = [];
   switch (newState[id].type) {
     case "Pawn":
-      hilightSpots = Pawn(id, newState[id].firstmove);
       if (newState[id].color == "White") {
-        return hilightSpots.filter(
-          (spot: any) =>
-            newState[spot].type == null ||
-            newState[spot].color == "Black" ||
-            spot == id
-        );
+        hilightSpots = Pawn(id, "up", '2');
+        let pause: boolean = false;
+        return hilightSpots.filter((spot: string) => {
+          if (!pause) {
+            if (newState[spot].color == "White" && spot !== id) {
+              pause = true;
+              return false;
+            } else if (newState[spot].color == "Black") {
+              // to fix black highlighting bug
+              pause = true;
+              return true;
+            }
+            return (
+              newState[spot].type == null ||
+              newState[spot].color == "Black" ||
+              spot == id
+            );
+          } else {
+            return false;
+          }
+        });
       } else {
-        return hilightSpots.filter(
-          (spot: any) =>
-            newState[spot] == null || newState[spot].color == "White"
-        );
+        hilightSpots = Pawn(id, "down", '7');
+        let pause: boolean = false;
+        return hilightSpots.filter((spot: string) => {
+          if (!pause) {
+            if (newState[spot].color == "Black" && spot !== id) {
+              pause = true;
+              return false;
+            } else if (newState[spot].color == "White") {
+              // to fix black highlighting bug
+              pause = true;
+              return true;
+            }
+            return (
+              newState[spot].type == null ||
+              newState[spot].color == "White" ||
+              spot == id
+            );
+          } else {
+            return false;
+          }
+        });
       }
     case "King":
       hilightSpots = King(id);
@@ -267,7 +295,9 @@ const Highlighter = (id: string, State: object) => {
       } else {
         return hilightSpots.filter(
           (spot: any) =>
-            newState[spot] == null || newState[spot].color == "White"
+            newState[spot].type == null ||
+            newState[spot].color == "White" ||
+            spot == id
         );
       }
     case "Bishop":
@@ -277,10 +307,12 @@ const Highlighter = (id: string, State: object) => {
         if (newState[id].color == "White") {
           return hilightSpots.filter((spot: any) => {
             if (!pause) {
-              console.log("pause = false");
-              if (newState[spot].color && spot !== id) {
+              if (newState[spot].color == "White" && spot !== id) {
                 pause = true;
                 return false;
+              } else if (newState[spot].color == "Black") {
+                pause = true;
+                return true;
               }
               return (
                 newState[spot].type == null ||
@@ -288,7 +320,6 @@ const Highlighter = (id: string, State: object) => {
                 newState[spot].color == "Black"
               );
             } else {
-              console.log("pause = true");
               return false;
             }
           });
@@ -299,6 +330,9 @@ const Highlighter = (id: string, State: object) => {
               if (newState[spot].color == "White") {
                 pause = true;
                 return false;
+              } else if (newState[spot].color == "Black") {
+                pause = true;
+                return true;
               }
               return newState[spot].type == null || spot == id;
             } else {
@@ -315,18 +349,20 @@ const Highlighter = (id: string, State: object) => {
         if (newState[id].color == "White") {
           return hilightSpots.filter((spot: any) => {
             if (!pause) {
-              console.log("pause = false");
-              if (newState[spot].color && spot !== id) {
+              if (newState[spot].color == "White" && spot !== id) {
                 pause = true;
                 return false;
+              } else if (newState[spot].color == "Black") {
+                pause = true;
+                return true;
               }
+
               return (
                 newState[spot].type == null ||
                 spot == id ||
                 newState[spot].color == "Black"
               );
             } else {
-              console.log("pause = true");
               return false;
             }
           });
@@ -337,7 +373,11 @@ const Highlighter = (id: string, State: object) => {
               if (newState[spot].color == "White") {
                 pause = true;
                 return false;
+              } else if (newState[spot].color == "Black") {
+                pause = true;
+                return true;
               }
+
               return newState[spot].type == null || spot == id;
             } else {
               return false;
@@ -353,8 +393,7 @@ const Highlighter = (id: string, State: object) => {
         if (newState[id].color == "White") {
           return hilightSpots.filter((spot: any) => {
             if (!pause) {
-              console.log("pause = false");
-              if (newState[spot].color && spot !== id) {
+              if (newState[spot].color == "White" && spot !== id) {
                 pause = true;
                 return false;
               }
@@ -364,7 +403,6 @@ const Highlighter = (id: string, State: object) => {
                 newState[spot].color == "Black"
               );
             } else {
-              console.log("pause = true");
               return false;
             }
           });
