@@ -123,14 +123,20 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] make the black king functional
 
 
+## eating functionality
+- [ ] pass the handle move function to all the highlighted spots
+      not only the empty ones
+- [ ] make the moveing function remove the property of the peice
+      if its there
+
 
 ## bug reports
 - [x] problems with highlighting when clicking a white peice that
       highlight a black peice and then clicking a black peice
 - [x] the black Rook can skip the a black peice that is blow it
-- [ ] black queen can't go back to it original place
+- [x] black queen can't go back to it original place
 - [ ] black queen can skip black peices
-- [ ] black bishop highlight black peices and do not highlight
+- [x] black bishop highlight black peices and do not highlight
       white ones (can eat them)
 
 

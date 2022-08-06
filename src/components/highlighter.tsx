@@ -15,7 +15,7 @@ const move: any = (
     switch (dir) {
       case "up":
         index = y.indexOf(newSpot[0]);
-        newSpot = parseInt(newSpot[0]) + 1 < 8 ? y[index + 1] + spot[1] : false;
+        newSpot = parseInt(newSpot[0]) + 1 < 9 ? y[index + 1] + spot[1] : false;
         break;
       case "down":
         index = y.indexOf(newSpot[0]);
