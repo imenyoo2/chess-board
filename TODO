@@ -135,9 +135,10 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
       highlight a black peice and then clicking a black peice
 - [x] the black Rook can skip the a black peice that is blow it
 - [x] black queen can't go back to it original place
-- [ ] black queen can skip black peices
+- [x] black queen can skip black peices
 - [x] black bishop highlight black peices and do not highlight
       white ones (can eat them)
+- [x] peices of the oposite color don't block queens movment
 
 
 
