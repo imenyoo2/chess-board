@@ -84,6 +84,8 @@ function App() {
   const handleClick = (id: string) => {
     // get the spots that should be highlighted
     const highlightSpots: any = Highlighter(id, State);
+    console.log(highlightSpots);
+
     // get the objects of the spots that should be highlighted
     let highlight = highlightSpots.reduce((ac: any, item: any) => {
       ac[item] = { ...State[item], highlighted: true };

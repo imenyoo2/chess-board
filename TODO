@@ -125,12 +125,12 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 
 
 ## bug reports
-- problems with highlighting when clicking a white peice that
-  highlight a black peice and then clicking a black peice
-- the black Rook can skip the a black peice that is blow it
-- black queen can't go back to it original place
-- black queen can skip black peices
-- black bishop highlight black peices (can eat them)
+- [x] problems with highlighting when clicking a white peice that
+      highlight a black peice and then clicking a black peice
+- [x] the black Rook can skip the a black peice that is blow it
+- [ ] black queen can't go back to it original place
+- [ ] black queen can skip black peices
+- [ ] black bishop highlight black peices (can eat them)
 
 
 

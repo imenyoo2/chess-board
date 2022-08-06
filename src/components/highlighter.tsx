@@ -42,7 +42,7 @@ const move: any = (
 //move('1a', 'right', 3);
 
 // pawn -----------------
-const Pawn = (spot: string, op: "up" | "down", initLine: '2'|'7') => {
+const Pawn = (spot: string, op: "up" | "down", initLine: "2" | "7") => {
   let hilightSpots = [];
   hilightSpots.push(spot);
   if (spot[0] == initLine) {
@@ -224,7 +224,7 @@ const Highlighter = (id: string, State: object) => {
   switch (newState[id].type) {
     case "Pawn":
       if (newState[id].color == "White") {
-        hilightSpots = Pawn(id, "up", '2');
+        hilightSpots = Pawn(id, "up", "2");
         let pause: boolean = false;
         return hilightSpots.filter((spot: string) => {
           if (!pause) {
@@ -246,7 +246,7 @@ const Highlighter = (id: string, State: object) => {
           }
         });
       } else {
-        hilightSpots = Pawn(id, "down", '7');
+        hilightSpots = Pawn(id, "down", "7");
         let pause: boolean = false;
         return hilightSpots.filter((spot: string) => {
           if (!pause) {
@@ -278,9 +278,13 @@ const Highlighter = (id: string, State: object) => {
             spot == id
         );
       } else {
+        console.log(hilightSpots);
+        console.log(newState['7e']);
         return hilightSpots.filter(
           (spot: any) =>
-            newState[spot] == null || newState[spot].color == "White"
+            newState[spot].type == null ||
+            newState[spot].color == "White" ||
+            spot == id
         );
       }
     case "Knight":
