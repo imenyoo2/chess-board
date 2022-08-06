@@ -278,8 +278,6 @@ const Highlighter = (id: string, State: object) => {
             spot == id
         );
       } else {
-        console.log(hilightSpots);
-        console.log(newState["7e"]);
         return hilightSpots.filter(
           (spot: any) =>
             newState[spot].type == null ||

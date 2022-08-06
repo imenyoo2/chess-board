@@ -124,9 +124,9 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 
 
 ## eating functionality
-- [ ] pass the handle move function to all the highlighted spots
+- [x] pass the handle move function to all the highlighted spots
       not only the empty ones
-- [ ] make the moveing function remove the property of the peice
+- [x] make the moveing function remove the property of the peice
       if its there
 
 

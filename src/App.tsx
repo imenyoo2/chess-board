@@ -77,6 +77,7 @@ let ClickedSpot = "";
 
 function App() {
   const [State, setState] = React.useState(initialState);
+  console.log(State);
 
   // to change the firstmove property
 
@@ -84,7 +85,6 @@ function App() {
   const handleClick = (id: string) => {
     // get the spots that should be highlighted
     const highlightSpots: any = Highlighter(id, State);
-    console.log(highlightSpots);
 
     // get the objects of the spots that should be highlighted
     let highlight = highlightSpots.reduce((ac: any, item: any) => {
@@ -122,7 +122,6 @@ function App() {
         ac[item] = { ...State[item], highlighted: false };
         return ac;
       }, {});
-      console.log(unhighlight);
 
       //changing the state
       setState({ ...State, ...highlight, ...unhighlight });
@@ -152,7 +151,7 @@ function Board({ State, handleClick, handleMove }: any) {
   for (let i = 1; i <= 64; i++) {
     let id = y[y_index] + x[x_index];
     if (j) {
-      if (State[id].type) {
+      if (State[id].type && State[id].highlighted == false) {
         squirs.push(
           <Peice
             spotColor="Black"
@@ -160,6 +159,16 @@ function Board({ State, handleClick, handleMove }: any) {
             type={State[id].type}
             highlighted={State[id].highlighted}
             handleClick={() => handleClick(id)}
+          />
+        );
+      } else if (State[id].type && State[id].highlighted == true) {
+        squirs.push(
+          <Peice
+            spotColor="Black"
+            color={State[id].color}
+            type={State[id].type}
+            highlighted={State[id].highlighted}
+            handleClick={() => handleMove(id)}
           />
         );
       } else {
@@ -175,7 +184,7 @@ function Board({ State, handleClick, handleMove }: any) {
       x_index += 1;
       j = false;
     } else {
-      if (State[id].type) {
+      if (State[id].type && State[id].highlighted == false) {
         squirs.push(
           <Peice
             spotColor="White"
@@ -183,6 +192,16 @@ function Board({ State, handleClick, handleMove }: any) {
             type={State[id].type}
             highlighted={State[id].highlighted}
             handleClick={() => handleClick(id)}
+          />
+        );
+      } else if (State[id].type && State[id].highlighted == true) {
+        squirs.push(
+          <Peice
+            spotColor="White"
+            color={State[id].color}
+            type={State[id].type}
+            highlighted={State[id].highlighted}
+            handleClick={() => handleMove(id)}
           />
         );
       } else {
