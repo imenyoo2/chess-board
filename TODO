@@ -109,13 +109,14 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 
 
 - [x] make the empty highlighted spots clickable
-- [ ] create a function that handle the clicks coming from the empty spots
+- [x] create a function that handle the clicks coming from the empty spots
 - [ ] move the handleClick function to another file
 - [ ] move the Board function to another file
 - [ ] change the move function in highlighter to be able to deal with
       black peices
 - [ ] fix the Knight bug
 - [ ] fix the Pawn bug
+- [ ] make the black Pawns clickable
 
 
 

@@ -8,26 +8,27 @@ const move: any = (
   }
   let x = "abcdefgh";
   let y = "12345678";
-  let newSpot = spot;
+  let newSpot: any = spot; // set to any because type script throw an error when
+                           // when we do newSpot[0]
   let index = 0;
   for (let i = 0; i < amount; i++) {
     switch (dir) {
       case "up":
         index = y.indexOf(newSpot[0]);
-        newSpot = y[index + (parseInt(newSpot[0]) + 1 < 8 ? 1 : 0)] + spot[1];
+        newSpot = parseInt(newSpot[0]) + 1 < 8 ? y[index + 1] + spot[1] : false;
         break;
       case "down":
         index = y.indexOf(newSpot[0]);
         // TODO: change parseInt with index
-        newSpot = y[index - (parseInt(newSpot[0]) - 1 > 0 ? 1 : 0)] + spot[1];
+        newSpot = parseInt(newSpot[0]) - 1 > 0 ? y[index - 1] + spot[1] : false;
         break;
       case "right":
         index = x.indexOf(newSpot[1]);
-        newSpot = newSpot[0] + x[index + (index + 1 < 8 ? 1 : 0)];
+        newSpot = index + 1 < 8 ? newSpot[0] + x[index + 1] : false;
         break;
       case "left":
         index = x.indexOf(newSpot[1]);
-        newSpot = newSpot[0] + x[index - (index - 1 > -1 ? 1 : 0)];
+        newSpot = index - 1 > -1 ? newSpot[0] + x[index - 1] : false;
         break;
     }
   }
