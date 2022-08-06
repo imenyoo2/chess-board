@@ -345,8 +345,8 @@ const Highlighter = (id: string, State: object) => {
     case "Rook":
       let RookLines = Rook(id);
       RookLines = RookLines.map((hilightSpots) => {
-        let pause: boolean = false;
         if (newState[id].color == "White") {
+          let pause: boolean = false;
           return hilightSpots.filter((spot: any) => {
             if (!pause) {
               if (newState[spot].color == "White" && spot !== id) {
@@ -370,15 +370,19 @@ const Highlighter = (id: string, State: object) => {
           let pause: boolean = false;
           return hilightSpots.filter((spot: any) => {
             if (!pause) {
-              if (newState[spot].color == "White") {
+              if (newState[spot].color == "Black" && spot !== id) {
                 pause = true;
                 return false;
-              } else if (newState[spot].color == "Black") {
+              } else if (newState[spot].color == "White") {
                 pause = true;
                 return true;
               }
 
-              return newState[spot].type == null || spot == id;
+              return (
+                newState[spot].type == null ||
+                spot == id ||
+                newState[spot].color == "White"
+              );
             } else {
               return false;
             }
