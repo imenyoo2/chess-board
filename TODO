@@ -120,7 +120,7 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] make the black Pawns clickable
 - [x] fix the black peices highlighting bug
 - [x] make black Knight clickable 
-- [ ] make the black king functional
+- [x] make the black king functional
 
 
 
@@ -130,7 +130,8 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] the black Rook can skip the a black peice that is blow it
 - [ ] black queen can't go back to it original place
 - [ ] black queen can skip black peices
-- [ ] black bishop highlight black peices (can eat them)
+- [ ] black bishop highlight black peices and do not highlight
+      white ones (can eat them)
 
 
 
