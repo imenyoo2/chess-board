@@ -43,7 +43,8 @@ const move: any = (
 
 // pawn -----------------
 const Pawn = (spot: string, op: "up" | "down", initLine: "2" | "7") => {
-  let hilightSpots = [];
+  let pawnlines = [];
+  let hilightSpots: any = [];
   hilightSpots.push(spot);
   if (spot[0] == initLine) {
     hilightSpots.push(move(spot, op, 1));
@@ -51,7 +52,12 @@ const Pawn = (spot: string, op: "up" | "down", initLine: "2" | "7") => {
   } else {
     hilightSpots.push(move(spot, op, 1));
   }
-  return hilightSpots;
+  pawnlines.push(hilightSpots);
+  hilightSpots = [];
+  hilightSpots.push(move(move(spot, op, 1), 'right', 1))
+  hilightSpots.push(move(move(spot, op, 1), 'left', 1))
+  pawnlines.push(hilightSpots);
+  return pawnlines;
 };
 
 // King ------------------------
@@ -220,13 +226,13 @@ const Rook = (spot: string) => {
 
 const Highlighter = (id: string, State: object) => {
   let newState: any = State;
-  let hilightSpots: string[] = [];
+  let hilightSpots: string[][] = [];
   switch (newState[id].type) {
     case "Pawn":
       if (newState[id].color == "White") {
         hilightSpots = Pawn(id, "up", "2");
         let pause: boolean = false;
-        return hilightSpots.filter((spot: string) => {
+        return [...hilightSpots[0].filter((spot: string) => {
           if (!pause) {
             if (newState[spot].color && spot !== id) {
               pause = true;
@@ -240,11 +246,11 @@ const Highlighter = (id: string, State: object) => {
           } else {
             return false;
           }
-        });
+        }), ...hilightSpots[1].filter((spot: string) => newState[spot].color == 'Black')];
       } else {
         hilightSpots = Pawn(id, "down", "7");
         let pause: boolean = false;
-        return hilightSpots.filter((spot: string) => {
+        return [...hilightSpots[0].filter((spot: string) => {
           if (!pause) {
             if (newState[spot].color && spot !== id) {
               pause = true;
@@ -258,7 +264,7 @@ const Highlighter = (id: string, State: object) => {
           } else {
             return false;
           }
-        });
+        }), ...hilightSpots[1].filter((spot: string) => newState[spot].color == 'White')]
       }
     case "King":
       hilightSpots = King(id);
