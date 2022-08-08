@@ -129,6 +129,17 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] make the moveing function remove the property of the peice
       if its there
 
+## changing pawn functionality
+- [x] create a component that handle the changing of the pawn
+- [x] this component should ask the user whitch peice they want to
+      replace the pawn with
+- [ ] make the rest of the board unclickable when this component is 
+      rendered
+- [x] create the handle function that change the pawn
+
+
+
+
 
 ## bug reports
 - [x] problems with highlighting when clicking a white peice that

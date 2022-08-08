@@ -27,3 +27,25 @@
   opacity: 50%;
 }
 
+
+.choices-container{
+  height: 62.5px;
+  width: 250px;
+  display: grid;
+  grid-template-columns: 62.5px 62.5px 62.5px 62.5px;
+  background-color: #2C3333;
+  justify-items: center;
+  align-items: center;
+  position: absolute;
+  top: 40%;
+  right: 25%;
+}
+.choices-container > div {
+  background-color: #395B64;
+}
+.choices-container > div:hover{
+  background-color: #A5C9CA;
+}
+.container{
+  position: relative;
+}

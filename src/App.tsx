@@ -4,6 +4,7 @@ import "./App.css";
 import Peice from "./components/Peice";
 import Highlighter from "./components/highlighter";
 import Mover from "./components/mover";
+import PawnChanger from "./components/PawnChanger";
 
 const initialState: any = {
   "1a": { color: "White", type: "Rook", highlighted: false },
@@ -77,6 +78,7 @@ let ClickedSpot = "";
 
 function App() {
   const [State, setState] = React.useState(initialState);
+  const [isReplace, setIsReplace]: any = React.useState(false);
   console.log(State);
 
   // to change the firstmove property
@@ -108,9 +110,7 @@ function App() {
     }
 
     // check if the unhighlighted spots (else is the initial state)
-    if (
-      unhighlightSpots.length != 0
-    ) {
+    if (unhighlightSpots.length != 0) {
       // filtering the peices that should be highlighted from unhighlightSpots
       unhighlightSpots = unhighlightSpots.filter(
         (spot: string) => !highlightSpots.some((item: string) => item == spot)
@@ -133,12 +133,45 @@ function App() {
   };
 
   const handleMove = (New: string) => {
-    setState(Mover(ClickedSpot, New, State, unhighlightSpots));
+    setState(
+      Mover(ClickedSpot, New, State, unhighlightSpots, handlePawnRender)
+    );
   };
 
-  return (
-    <Board State={State} handleClick={handleClick} handleMove={handleMove} />
-  );
+  const handlePawnChange = (id: string, newObj: Object) => {
+    setState({ ...State, [id]: newObj });
+    setIsReplace(false);
+  };
+
+  const handlePawnRender = (id: string, color: "White" | "Black") => {
+    setIsReplace({ id: [id], color: [color] });
+  };
+  if (isReplace) {
+    return (
+      <div className="container">
+        <Board
+          State={State}
+          handleClick={handleClick}
+          handleMove={handleMove}
+        />
+        <PawnChanger
+          handleClick={handlePawnChange}
+          color={isReplace.color}
+          id={isReplace.id}
+        />
+      </div>
+    );
+  } else {
+    return (
+      <div className="container">
+        <Board
+          State={State}
+          handleClick={handleClick}
+          handleMove={handleMove}
+        />
+      </div>
+    );
+  }
 }
 
 function Board({ State, handleClick, handleMove }: any) {

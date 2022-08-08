@@ -2,7 +2,8 @@ const Mover = (
   Old: string,
   New: string,
   State: object,
-  unhighlight: string[]
+  unhighlight: string[],
+  handlePawnRender: any,
 ) => {
   let newState: any = { ...State };
 
@@ -17,6 +18,9 @@ const Mover = (
   // unhighlight after the move
   for (let i in unhighlight) {
     newState[unhighlight[i]].highlighted = false;
+  }
+  if (newState[New].type == 'Pawn' && (New[0] == '1' || New[0] == "8")){
+      handlePawnRender(New, newState[New].color);
   }
   return newState;
 };
