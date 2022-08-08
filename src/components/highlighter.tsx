@@ -228,13 +228,9 @@ const Highlighter = (id: string, State: object) => {
         let pause: boolean = false;
         return hilightSpots.filter((spot: string) => {
           if (!pause) {
-            if (newState[spot].color == "White" && spot !== id) {
+            if (newState[spot].color && spot !== id) {
               pause = true;
               return false;
-            } else if (newState[spot].color == "Black") {
-              // to fix black highlighting bug
-              pause = true;
-              return true;
             }
             return (
               newState[spot].type == null ||
@@ -250,13 +246,9 @@ const Highlighter = (id: string, State: object) => {
         let pause: boolean = false;
         return hilightSpots.filter((spot: string) => {
           if (!pause) {
-            if (newState[spot].color == "Black" && spot !== id) {
+            if (newState[spot].color && spot !== id) {
               pause = true;
               return false;
-            } else if (newState[spot].color == "White") {
-              // to fix black highlighting bug
-              pause = true;
-              return true;
             }
             return (
               newState[spot].type == null ||

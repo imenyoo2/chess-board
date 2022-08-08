@@ -139,6 +139,8 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] black bishop highlight black peices and do not highlight
       white ones (can eat them)
 - [x] peices of the oposite color don't block queens movment
+- [x] remove the enemy highlighting of the pawn
+- [ ] make pawns eate the side enemy peices
 
 
 
