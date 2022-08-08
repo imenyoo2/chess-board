@@ -54,9 +54,10 @@ const Pawn = (spot: string, op: "up" | "down", initLine: "2" | "7") => {
   }
   pawnlines.push(hilightSpots);
   hilightSpots = [];
-  hilightSpots.push(move(move(spot, op, 1), 'right', 1))
-  hilightSpots.push(move(move(spot, op, 1), 'left', 1))
+  hilightSpots.push(move(move(spot, op, 1), "right", 1));
+  hilightSpots.push(move(move(spot, op, 1), "left", 1));
   pawnlines.push(hilightSpots);
+  console.log(pawnlines);
   return pawnlines;
 };
 
@@ -232,39 +233,49 @@ const Highlighter = (id: string, State: object) => {
       if (newState[id].color == "White") {
         hilightSpots = Pawn(id, "up", "2");
         let pause: boolean = false;
-        return [...hilightSpots[0].filter((spot: string) => {
-          if (!pause) {
-            if (newState[spot].color && spot !== id) {
-              pause = true;
+        return [
+          ...hilightSpots[0].filter((spot: string) => {
+            if (!pause) {
+              if (newState[spot].color && spot !== id) {
+                pause = true;
+                return false;
+              }
+              return (
+                newState[spot].type == null ||
+                newState[spot].color == "Black" ||
+                spot == id
+              );
+            } else {
               return false;
             }
-            return (
-              newState[spot].type == null ||
-              newState[spot].color == "Black" ||
-              spot == id
-            );
-          } else {
-            return false;
-          }
-        }), ...hilightSpots[1].filter((spot: string) => newState[spot].color == 'Black')];
+          }),
+          ...hilightSpots[1].filter(
+            (spot: string) => spot && newState[spot].color == "Black"
+          ),
+        ];
       } else {
         hilightSpots = Pawn(id, "down", "7");
         let pause: boolean = false;
-        return [...hilightSpots[0].filter((spot: string) => {
-          if (!pause) {
-            if (newState[spot].color && spot !== id) {
-              pause = true;
+        return [
+          ...hilightSpots[0].filter((spot: string) => {
+            if (!pause) {
+              if (newState[spot].color && spot !== id) {
+                pause = true;
+                return false;
+              }
+              return (
+                newState[spot].type == null ||
+                newState[spot].color == "White" ||
+                spot == id
+              );
+            } else {
               return false;
             }
-            return (
-              newState[spot].type == null ||
-              newState[spot].color == "White" ||
-              spot == id
-            );
-          } else {
-            return false;
-          }
-        }), ...hilightSpots[1].filter((spot: string) => newState[spot].color == 'White')]
+          }),
+          ...hilightSpots[1].filter(
+            (spot: string) => spot && newState[spot].color == "White"
+          ),
+        ];
       }
     case "King":
       hilightSpots = King(id);

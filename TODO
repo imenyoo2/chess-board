@@ -141,6 +141,8 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] peices of the oposite color don't block queens movment
 - [x] remove the enemy highlighting of the pawn
 - [x] make pawns eate the side enemy peices
+- [x] pawn 5a is not clickable
+- [x] pawn 6b disapeare after eating pawn 5a
 
 
 
