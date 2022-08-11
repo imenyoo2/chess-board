@@ -57,7 +57,6 @@ const Pawn = (spot: string, op: "up" | "down", initLine: "2" | "7") => {
   hilightSpots.push(move(move(spot, op, 1), "right", 1));
   hilightSpots.push(move(move(spot, op, 1), "left", 1));
   pawnlines.push(hilightSpots);
-  console.log(pawnlines);
   return pawnlines;
 };
 

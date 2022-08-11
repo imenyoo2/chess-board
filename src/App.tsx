@@ -5,6 +5,7 @@ import Peice from "./components/Peice";
 import Highlighter from "./components/highlighter";
 import Mover from "./components/mover";
 import PawnChanger from "./components/PawnChanger";
+import TurnMsg from "./components/TurnMsg";
 
 const initialState: any = {
   "1a": { color: "White", type: "Rook", highlighted: false },
@@ -76,63 +77,103 @@ const initialState: any = {
 let unhighlightSpots: any = [];
 let ClickedSpot = "";
 
+type turnType = {
+  turn: "White" | "Black";
+  notifications: any[];
+  id: number;
+};
+
 function App() {
+  console.log("App render");
   const [State, setState] = React.useState(initialState);
+
   const [isReplace, setIsReplace]: any = React.useState(false);
-  console.log(State);
+
+  const [Turn, setTurn] = React.useState<turnType>({
+    turn: "White",
+    notifications: [],
+    id: 0,
+  });
 
   // to change the firstmove property
 
   // handles the clicks coming from the taken spots and calls the Highlighter
   const handleClick = (id: string) => {
-    // get the spots that should be highlighted
-    const highlightSpots: any = Highlighter(id, State);
-
-    // get the objects of the spots that should be highlighted
-    let highlight = highlightSpots.reduce((ac: any, item: any) => {
-      ac[item] = { ...State[item], highlighted: true };
-      return ac;
-    }, {});
-
-    // the condition of clicking the same peice again
-    if (
-      highlightSpots.every((item: any) =>
-        unhighlightSpots.some(
-          (unhighlightSpot: string) => item == unhighlightSpot
-        )
-      )
-    ) {
-      // generating the objs of highlighted peices
-      highlight = highlightSpots.reduce((ac: any, item: any) => {
-        ac[item] = { ...State[item], highlighted: !State[item].highlighted };
-        return ac;
-      }, {});
-    }
-
-    // check if the unhighlighted spots (else is the initial state)
-    if (unhighlightSpots.length != 0) {
-      // filtering the peices that should be highlighted from unhighlightSpots
-      unhighlightSpots = unhighlightSpots.filter(
-        (spot: string) => !highlightSpots.some((item: string) => item == spot)
-      );
-
-      // generating the objs of unhighlighted peices
-      const unhighlight = unhighlightSpots.reduce((ac: any, item: any) => {
-        //this should unhighlight the highlighted element
-        ac[item] = { ...State[item], highlighted: false };
-        return ac;
-      }, {});
-
-      //changing the state
-      setState({ ...State, ...highlight, ...unhighlight });
+    // only allow the player to click when its their turn, if not add a notification
+    if (State[id].color != Turn.turn) {
+      setTurn({
+        ...Turn,
+        notifications: [
+          ...Turn.notifications,
+          [
+            Turn.id,
+            <TurnMsg
+              key={Turn.id.toString()}
+              turn={Turn.turn}
+              handleClick={() => {
+                handleRemoveNotification(Turn.id);
+              }}
+            />,
+          ],
+        ],
+        id: Turn.id + 1,
+      });
     } else {
-      setState({ ...State, ...highlight });
+      // get the spots that should be highlighted
+      const highlightSpots: any = Highlighter(id, State);
+
+      // get the objects of the spots that should be highlighted
+      let highlight = highlightSpots.reduce((ac: any, item: any) => {
+        ac[item] = { ...State[item], highlighted: true };
+        return ac;
+      }, {});
+
+      // the condition of clicking the same peice again
+      if (
+        highlightSpots.every((item: any) =>
+          unhighlightSpots.some(
+            (unhighlightSpot: string) => item == unhighlightSpot
+          )
+        )
+      ) {
+        // generating the objs of highlighted peices
+        highlight = highlightSpots.reduce((ac: any, item: any) => {
+          ac[item] = { ...State[item], highlighted: !State[item].highlighted };
+          return ac;
+        }, {});
+      }
+
+      // check if the unhighlighted spots (else is the initial state)
+      if (unhighlightSpots.length != 0) {
+        // filtering the peices that should be highlighted from unhighlightSpots
+        unhighlightSpots = unhighlightSpots.filter(
+          (spot: string) => !highlightSpots.some((item: string) => item == spot)
+        );
+
+        // generating the objs of unhighlighted peices
+        const unhighlight = unhighlightSpots.reduce((ac: any, item: any) => {
+          //this should unhighlight the highlighted element
+          ac[item] = { ...State[item], highlighted: false };
+          return ac;
+        }, {});
+
+        //changing the state
+        setState({ ...State, ...highlight, ...unhighlight });
+      } else {
+        setState({ ...State, ...highlight });
+      }
+      unhighlightSpots = [...highlightSpots]; // update the next unhighlightSpots
+      ClickedSpot = id; // set the clicked spot to use it for the Old arg
     }
-    unhighlightSpots = [...highlightSpots]; // update the next unhighlightSpots
-    ClickedSpot = id; // set the clicked spot to use it for the Old arg
   };
 
   const handleMove = (New: string) => {
+    if (New != ClickedSpot) {
+      setTurn({
+        ...Turn,
+        turn: State[ClickedSpot].color == "White" ? "Black" : "White",
+      });
+    }
     setState(
       Mover(ClickedSpot, New, State, unhighlightSpots, handlePawnRender)
     );
@@ -146,6 +187,16 @@ function App() {
   const handlePawnRender = (id: string, color: "White" | "Black") => {
     setIsReplace({ id: [id], color: [color] });
   };
+
+  const handleRemoveNotification = (id: number) => {
+    setTurn((prevValue) => {
+      return {
+        ...prevValue,
+        notifications: prevValue.notifications.filter((arr) => arr[0] != id),
+      };
+    });
+  };
+
   if (isReplace) {
     return (
       <div className="container">
@@ -162,19 +213,24 @@ function App() {
       </div>
     );
   } else {
+    // we don't want to modify the original so the ranking system don't break
+    // also we map and to filter only the components
+    let reversed = [...Turn.notifications].reverse().map((arr) => arr[1]);
     return (
-      <div className="container">
+      <>
         <Board
           State={State}
           handleClick={handleClick}
           handleMove={handleMove}
         />
-      </div>
+        <div className="notifications">{reversed}</div>
+      </>
     );
   }
 }
 
 function Board({ State, handleClick, handleMove }: any) {
+  console.log("Board");
   const squirs: any = [];
   let j = true;
   let x = "abcdefgh".split("");

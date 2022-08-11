@@ -17,16 +17,19 @@
 }
 
 .Black{
-  background-color: white;
+  background-color: #B8F1B0;
 }
 .White{
-  background-color: black;
+  background-color: #14C38E;
 }
 
 .highlighted{
   opacity: 50%;
 }
 
+.container {
+  position: relative;
+}
 
 .choices-container{
   height: 62.5px;
@@ -37,15 +40,42 @@
   justify-items: center;
   align-items: center;
   position: absolute;
-  top: 40%;
-  right: 25%;
+  top: 44%;
+  left: 38.5%;
 }
-.choices-container > div {
+.choices-container > a > div {
   background-color: #395B64;
 }
-.choices-container > div:hover{
+.choices-container > a > div:hover{
   background-color: #A5C9CA;
 }
-.container{
-  position: relative;
+
+.notifications{
+  position: fixed;
+  top: 3px;
+  right: 3px;
+}
+
+.TurnMsg {
+  background-color: #A5C9CA;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-top: 0;
+}
+
+.TurnMsg > button {
+  border-radius: 50%;
+  background-color: #F65A83;
+  border: 1px solid #EB1D36;
+  margin-left: 90%;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+.TurnMsg > button:active{
+  background-color: #F37878;
+}
+
+.TurnMsg > p{
+  margin-top: 0;
+  padding-bottom: 3px;
 }

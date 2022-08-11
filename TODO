@@ -136,6 +136,25 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [ ] make the rest of the board unclickable when this component is 
       rendered
 - [x] create the handle function that change the pawn
+- [x] fix the css problem
+
+## the turn functionality
+- [x] create a useState variable named turn, its value is the color
+      of the current turn player
+- [x] create a component that throw a msg when the player click when 
+      its not their turn
+- [x] apply the condition in the move function
+
+- [ ] fix the ranking problem
+      - the problems
+      - [ ] the Turn state's id somehow return to 0 when clicking the 
+            last item of notifications
+      - [ ] when handleRemoveNotification get called with id=0 the loop
+            filter don't get executed
+      - [ ] maybe it has something to do with preventdefault
+      - [ ] also there is some weird bug when clicking the x button 
+            2 of the notifications get removed insted of only one
+      - [ ] check this link https://stackoverflow.com/questions/72152709/react-array-filtering-is-not-working-as-expected
 
 
 
