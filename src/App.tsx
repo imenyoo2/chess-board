@@ -6,6 +6,7 @@ import Highlighter from "./components/highlighter";
 import Mover from "./components/mover";
 import PawnChanger from "./components/PawnChanger";
 import TurnMsg from "./components/TurnMsg";
+import { AddNotification } from "./components/TurnMsg"
 
 const initialState: any = {
   "1a": { color: "White", type: "Rook", highlighted: false },
@@ -89,35 +90,18 @@ function App() {
 
   const [isReplace, setIsReplace]: any = React.useState(false);
 
-  const [Turn, setTurn] = React.useState<turnType>({
+  const [Turn, setTurn] = React.useState<any>({
     turn: "White",
     notifications: [],
     id: 0,
   });
-
-  // to change the firstmove property
+// to change the firstmove property
 
   // handles the clicks coming from the taken spots and calls the Highlighter
   const handleClick = (id: string) => {
     // only allow the player to click when its their turn, if not add a notification
     if (State[id].color != Turn.turn) {
-      setTurn({
-        ...Turn,
-        notifications: [
-          ...Turn.notifications,
-          [
-            Turn.id,
-            <TurnMsg
-              key={Turn.id.toString()}
-              turn={Turn.turn}
-              handleClick={() => {
-                handleRemoveNotification(Turn.id);
-              }}
-            />,
-          ],
-        ],
-        id: Turn.id + 1,
-      });
+      setTurn(AddNotification('turn', Turn, () => handleRemoveNotification(Turn.id)));
     } else {
       // get the spots that should be highlighted
       const highlightSpots: any = Highlighter(id, State);
@@ -189,10 +173,10 @@ function App() {
   };
 
   const handleRemoveNotification = (id: number) => {
-    setTurn((prevValue) => {
+    setTurn((prevValue: any) => {
       return {
         ...prevValue,
-        notifications: prevValue.notifications.filter((arr) => arr[0] != id),
+        notifications: prevValue.notifications.filter((arr: any) => arr[0] != id),
       };
     });
   };

@@ -66,16 +66,66 @@
 .TurnMsg > button {
   border-radius: 50%;
   background-color: #F65A83;
-  border: 1px solid #EB1D36;
+  border: 3px solid #EB1D36;
   margin-left: 90%;
   margin-top: 3px;
   margin-bottom: 0;
+  animation-duration: 3s;
+  animation-name: slidein;
+  animation-timing-function: steps(1, end);
 }
 .TurnMsg > button:active{
   background-color: #F37878;
 }
 
+@keyframes slidein {
+  25% {
+    border-top-color: #A5C9CA;
+  }
+
+  50% {
+    border-right-color: #A5C9CA;
+  }
+  75%{
+    border-bottom-color: #A5C9CA;
+  }
+
+  to {
+    border-color: #A5C9CA;
+  }
+}
+
 .TurnMsg > p{
   margin-top: 0;
   padding-bottom: 3px;
+}
+
+
+.close {
+  color: #fff;
+  background: #2c545d;
+  border-radius: 15px;
+  display: block;
+  border: 2px solid #fff;
+  margin: 50px auto 0;
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+
+.close:after {
+  content: "\2715";
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  line-height: 1;
+  font-size: 18px;
+}
+.close:active {
+  background: #2f2f2f;
+  cursor: pointer;
+}
+.close:hover {
+  background: #3f3f3f;
+  cursor: pointer;
 }

@@ -10,7 +10,7 @@ const Mover = (
   // move to an empty spot
   if (newState[New].type == null) {
     [newState[Old], newState[New]] = [newState[New], newState[Old]];
-  } else{
+  } else{ // eat the peice
     let emptySpot = { type: null, highlighted: false };
     [newState[Old], newState[New]] = [emptySpot, newState[Old]];
   }

@@ -137,26 +137,27 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
       rendered
 - [x] create the handle function that change the pawn
 - [x] fix the css problem
-
 ## the turn functionality
 - [x] create a useState variable named turn, its value is the color
       of the current turn player
 - [x] create a component that throw a msg when the player click when 
       its not their turn
 - [x] apply the condition in the move function
+- [x] fix the ranking problem
 
-- [ ] fix the ranking problem
-      - the problems
-      - [ ] the Turn state's id somehow return to 0 when clicking the 
-            last item of notifications
-      - [ ] when handleRemoveNotification get called with id=0 the loop
-            filter don't get executed
-      - [ ] maybe it has something to do with preventdefault
-      - [ ] also there is some weird bug when clicking the x button 
-            2 of the notifications get removed insted of only one
-      - [ ] check this link https://stackoverflow.com/questions/72152709/react-array-filtering-is-not-working-as-expected
+## Feat: notifications timeout
+- [-] find an svg that of a disapearing curcle/animation in css
+- [x] learn about timeout in javascript
+- [x] implement a timeout after the creation of a 
+      notification to call the remove function
 
-
+## king attack
+- [ ] creating handle kingAttack
+- [ ] create a new parameter in the State obj to identify if the king
+      is attacked or not
+- [ ] create a component for notifications
+- [ ] call the kingattack fucking in the move function to check if the
+      king still attacked
 
 
 
