@@ -96,7 +96,7 @@ const Knight = (spot: string) => {
   return hilightSpots;
 };
 
-//Bishop
+//Bishop ---------------
 const Bishop = (spot: string) => {
   let lines = [];
   let hilightSpots = [];
@@ -160,7 +160,7 @@ const Bishop = (spot: string) => {
   return lines;
 };
 
-//Rook
+//Rook --------------------
 const Rook = (spot: string) => {
   let lines = [];
   let hilightSpots = [];

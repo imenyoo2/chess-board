@@ -1,17 +1,16 @@
 type TurnMsgProps = {
-  turn: "White" | "Black";
   handleClick: () => void;
+  children: any;
 };
 
-const TurnMsg = ({ turn, handleClick }: TurnMsgProps) => {
+const TurnMsg = ({ handleClick, children }: TurnMsgProps) => {
   setTimeout(handleClick, 2999);
-  console.log("TurnMsg");
   return (
     <div className="TurnMsg">
       <button type="button" onClick={handleClick}>
         x
       </button>
-      <p>it's the {turn} Player's turn</p>
+      <p>{children}</p>
     </div>
   );
 };
@@ -22,8 +21,7 @@ type addNotifResult = {
   id: number;
 };
 
-const AddNotification = (type: any, Turn: any, handleRemove: any) => {
-  if (type == "turn") {
+const AddNotification = (mag: any, Turn: any, handleRemove: any) => {
     return {
       ...Turn,
       notifications: [
@@ -32,14 +30,12 @@ const AddNotification = (type: any, Turn: any, handleRemove: any) => {
           Turn.id,
           <TurnMsg
             key={Turn.id.toString()}
-            turn={Turn.turn}
             handleClick={handleRemove}
-          />,
+          >{mag}</TurnMsg>,
         ],
       ],
       id: Turn.id + 1,
     };
-  }
 };
 
 export default TurnMsg;

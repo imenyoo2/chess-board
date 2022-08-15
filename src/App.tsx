@@ -1,12 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Peice from "./components/Peice";
 import Highlighter from "./components/highlighter";
 import Mover from "./components/mover";
 import PawnChanger from "./components/PawnChanger";
-import TurnMsg from "./components/TurnMsg";
-import { AddNotification } from "./components/TurnMsg"
+import { AddNotification } from "./components/TurnMsg";
+import KingAttack from "./components/kingAtack";
 
 const initialState: any = {
   "1a": { color: "White", type: "Rook", highlighted: false },
@@ -85,7 +84,6 @@ type turnType = {
 };
 
 function App() {
-  console.log("App render");
   const [State, setState] = React.useState(initialState);
 
   const [isReplace, setIsReplace]: any = React.useState(false);
@@ -95,14 +93,18 @@ function App() {
     notifications: [],
     id: 0,
   });
-// to change the firstmove property
 
   // handles the clicks coming from the taken spots and calls the Highlighter
   const handleClick = (id: string) => {
     // only allow the player to click when its their turn, if not add a notification
     if (State[id].color != Turn.turn) {
-      setTurn(AddNotification('turn', Turn, () => handleRemoveNotification(Turn.id)));
+      setTurn(
+        AddNotification(`it's the ${Turn.turn} player's turn`, Turn, () =>
+          handleRemoveNotification(Turn.id)
+        )
+      );
     } else {
+      console.log("turn is sutisfied");
       // get the spots that should be highlighted
       const highlightSpots: any = Highlighter(id, State);
 
@@ -114,12 +116,14 @@ function App() {
 
       // the condition of clicking the same peice again
       if (
+        // this thing just compare highlightSpots and unhighlightSpots
         highlightSpots.every((item: any) =>
           unhighlightSpots.some(
             (unhighlightSpot: string) => item == unhighlightSpot
           )
         )
       ) {
+        console.log("condition of clicking the same peice again");
         // generating the objs of highlighted peices
         highlight = highlightSpots.reduce((ac: any, item: any) => {
           ac[item] = { ...State[item], highlighted: !State[item].highlighted };
@@ -152,15 +156,38 @@ function App() {
   };
 
   const handleMove = (New: string) => {
-    if (New != ClickedSpot) {
-      setTurn({
-        ...Turn,
-        turn: State[ClickedSpot].color == "White" ? "Black" : "White",
-      });
-    }
-    setState(
-      Mover(ClickedSpot, New, State, unhighlightSpots, handlePawnRender)
+    let newState = Mover(
+      ClickedSpot,
+      New,
+      State,
+      unhighlightSpots,
+      handlePawnRender,
+      Turn,
+      handleRemoveNotification
     );
+    console.log(`New: ${New}`);
+    console.log(`Old: ${ClickedSpot}`);
+    // check if the king is under attack
+    if (typeof newState == 'object') {
+      setState(newState);
+      // change the turn if peice got moved
+      if (New != ClickedSpot) {
+        setTurn({
+          ...Turn,
+          turn: State[ClickedSpot].color == "White" ? "Black" : "White",
+        });
+      }
+    } else {
+      if (New == ClickedSpot) {
+        newState = { ...State };
+        for (let i in unhighlightSpots) {
+          newState[unhighlightSpots[i]].highlighted = false;
+        }
+        setState(newState);
+      } else {
+        setTurn(newState());
+      }
+    }
   };
 
   const handlePawnChange = (id: string, newObj: Object) => {
@@ -176,7 +203,9 @@ function App() {
     setTurn((prevValue: any) => {
       return {
         ...prevValue,
-        notifications: prevValue.notifications.filter((arr: any) => arr[0] != id),
+        notifications: prevValue.notifications.filter(
+          (arr: any) => arr[0] != id
+        ),
       };
     });
   };
@@ -214,7 +243,6 @@ function App() {
 }
 
 function Board({ State, handleClick, handleMove }: any) {
-  console.log("Board");
   const squirs: any = [];
   let j = true;
   let x = "abcdefgh".split("");
