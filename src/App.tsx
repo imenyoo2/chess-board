@@ -6,6 +6,7 @@ import Mover from "./components/mover";
 import PawnChanger from "./components/PawnChanger";
 import { AddNotification } from "./components/TurnMsg";
 import KingAttack from "./components/kingAtack";
+import NavBar from "./components/navBar";
 
 const initialState: any = {
   "1a": { color: "White", type: "Rook", highlighted: false },
@@ -209,6 +210,7 @@ function App() {
   if (isReplace) {
     return (
       <div className="container">
+        <NavBar/>
         <Board
           State={State}
           handleClick={handleClick}
@@ -227,6 +229,7 @@ function App() {
     let reversed = [...Turn.notifications].reverse().map((arr) => arr[1]);
     return (
       <>
+        <NavBar/>
         <Board
           State={State}
           handleClick={handleClick}

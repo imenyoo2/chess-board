@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px;
   grid-template-rows: 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px;
+  margin-top: 40px;
 }
 
 .spot{
@@ -128,4 +129,15 @@
 .close:hover {
   background: #3f3f3f;
   cursor: pointer;
+}
+
+
+.NotificationIcon > svg {
+  height: 20px;
+  width: 20px;
+}
+.NotificationIcon {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
 }
