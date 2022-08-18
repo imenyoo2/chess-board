@@ -42,6 +42,9 @@ const move: any = (
 //move('1a', 'right', 3);
 
 // pawn -----------------
+// this will return an array of 2 arrays
+//  -> the first is the forward movments
+//  -> the second is the sides movments
 const Pawn = (spot: string, op: "up" | "down", initLine: "2" | "7") => {
   let pawnlines = [];
   let hilightSpots: any = [];
@@ -224,7 +227,8 @@ const Rook = (spot: string) => {
   return lines;
 };
 
-const Highlighter = (id: string, State: object) => {
+// any to avoid the error in KingAttack component
+const Highlighter: any = (id: string, State: object) => {
   let newState: any = State;
   let hilightSpots: string[][] = [];
   switch (newState[id].type) {

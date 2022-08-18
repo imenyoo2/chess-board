@@ -104,7 +104,6 @@ function App() {
         )
       );
     } else {
-      console.log("turn is sutisfied");
       // get the spots that should be highlighted
       const highlightSpots: any = Highlighter(id, State);
 
@@ -123,7 +122,6 @@ function App() {
           )
         )
       ) {
-        console.log("condition of clicking the same peice again");
         // generating the objs of highlighted peices
         highlight = highlightSpots.reduce((ac: any, item: any) => {
           ac[item] = { ...State[item], highlighted: !State[item].highlighted };
@@ -165,8 +163,6 @@ function App() {
       Turn,
       handleRemoveNotification
     );
-    console.log(`New: ${New}`);
-    console.log(`Old: ${ClickedSpot}`);
     // check if the king is under attack
     if (typeof newState == 'object') {
       setState(newState);

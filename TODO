@@ -152,13 +152,14 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
       notification to call the remove function
 
 ## king attack
-- [ ] creating handle kingAttack
-- [ ] create a new parameter in the State obj to identify if the king
+- [x] creating handle kingAttack
+- [x] create a new parameter in the State obj to identify if the king
       is attacked or not
-- [ ] create a component for notifications
-- [ ] call the kingattack fucking in the move function to check if the
+- [x] create a component for notifications
+- [x] call the kingattack fucking in the move function to check if the
       king still attacked
 
+## nav bar
 
 
 ## bug reports
@@ -174,6 +175,7 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] make pawns eate the side enemy peices
 - [x] pawn 5a is not clickable
 - [x] pawn 6b disapeare after eating pawn 5a
+- [ ] turn doesn't change when the pawn get upgraded
 
 
 

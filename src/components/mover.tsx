@@ -31,7 +31,6 @@ const Mover = (
     // if the king is not under attack then move
     return newState;
   } else {
-    console.log('the king is under attack')
     return () => AddNotification("the king is under attack", Turn, () => handleNotifications(Turn.id));
   }
 };
