@@ -110,9 +110,9 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 
 - [x] make the empty highlighted spots clickable
 - [x] create a function that handle the clicks coming from the empty spots
-- [ ] move the handleClick function to another file
-- [ ] move the Board function to another file
-- [ ] change the move function in highlighter to be able to deal with
+- [-] move the handleClick function to another file
+- [-] move the Board function to another file
+- [-] change the move function in highlighter to be able to deal with
       black peices
 - [x] fix the Knight bug
 - [x] fix the Pawn bug
@@ -176,6 +176,7 @@ const highlight = highlightSpots.reduce((ac: any, item: any) => {
 - [x] pawn 5a is not clickable
 - [x] pawn 6b disapeare after eating pawn 5a
 - [ ] turn doesn't change when the pawn get upgraded
+- [ ] highlighting problem when the king is under atake
 
 
 

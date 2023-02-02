@@ -1,3 +1,4 @@
+// move return the spot after the movement dir
 const move: any = (
   spot: string,
   dir: "up" | "down" | "right" | "left",

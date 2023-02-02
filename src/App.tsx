@@ -5,23 +5,25 @@ import Highlighter from "./components/highlighter";
 import Mover from "./components/mover";
 import PawnChanger from "./components/PawnChanger";
 import { AddNotification } from "./components/TurnMsg";
+import TurnMsg from "./components/TurnMsg";
 import KingAttack from "./components/kingAtack";
 import NavBar from "./components/navBar";
+import SavedNotificationWindow from "./components/savedNotificationWindow"
 
 const initialState: any = {
   "1a": { color: "White", type: "Rook", highlighted: false },
   "1b": { color: "White", type: "Knight", highlighted: false },
   "1c": { color: "White", type: "Bishop", highlighted: false },
-  "1d": { type: null, highlighted: false },
+  "1d": { color: "White", type: "Queen", highlighted: false },
   "1e": { color: "White", type: "King", highlighted: false },
   "1f": { color: "White", type: "Bishop", highlighted: false },
   "1g": { color: "White", type: "Knight", highlighted: false },
   "1h": { color: "White", type: "Rook", highlighted: false },
-  "2a": { type: null, highlighted: false },
+  "2a": { color: "White", type: "Pawn", highlighted: false },
   "2b": { color: "White", type: "Pawn", highlighted: false },
   "2c": { color: "White", type: "Pawn", highlighted: false },
   "2d": { color: "White", type: "Pawn", highlighted: false },
-  "2e": { type: null, highlighted: false },
+  "2e": { color: "White", type: "Pawn", highlighted: false },
   "2f": { color: "White", type: "Pawn", highlighted: false },
   "2g": { color: "White", type: "Pawn", highlighted: false },
   "2h": { color: "White", type: "Pawn", highlighted: false },
@@ -35,13 +37,13 @@ const initialState: any = {
   "3h": { type: null, highlighted: false },
   "4a": { type: null, highlighted: false },
   "4b": { type: null, highlighted: false },
-  "4c": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
+  "4c": { type: null, highlighted: false },
   "4d": { type: null, highlighted: false },
   "4e": { type: null, highlighted: false },
   "4f": { type: null, highlighted: false },
-  "4g": { color: "White", type: "Queen", highlighted: false },
+  "4g": { type: null, highlighted: false },
   "4h": { type: null, highlighted: false },
-  "5a": { color: "White", type: "Pawn", highlighted: false, firstmove: true },
+  "5a": { type: null, highlighted: false },
   "5b": { type: null, highlighted: false },
   "5c": { type: null, highlighted: false },
   "5d": { type: null, highlighted: false },
@@ -95,13 +97,17 @@ function App() {
     id: 0,
   });
 
+  const [notificationClicked, setNotificationClicked] = React.useState(false);
+
+  const [savedNotifications, setSavedNotifications]: any = React.useState({notifications: [], id: 0});
+
   // handles the clicks coming from the taken spots and calls the Highlighter
   const handleClick = (id: string) => {
     // only allow the player to click when its their turn, if not add a notification
     if (State[id].color != Turn.turn) {
       setTurn(
         AddNotification(`it's the ${Turn.turn} player's turn`, Turn, () =>
-          handleRemoveNotification(Turn.id)
+          handleRemoveNotification(Turn.id), handleSaveNotification
         )
       );
     } else {
@@ -162,10 +168,11 @@ function App() {
       unhighlightSpots,
       handlePawnRender,
       Turn,
-      handleRemoveNotification
+      handleRemoveNotification,
+      handleSaveNotification,
     );
     // check if the king is under attack
-    if (typeof newState == 'object') {
+    if (typeof newState == "object") {
       setState(newState);
       // change the turn if peice got moved
       if (New != ClickedSpot) {
@@ -197,20 +204,42 @@ function App() {
   };
 
   const handleRemoveNotification = (id: number) => {
-    setTurn((prevValue: any) => {
+    setTurn((prev: any) => {
       return {
-        ...prevValue,
-        notifications: prevValue.notifications.filter(
-          (arr: any) => arr[0] != id
-        ),
+        ...prev,
+        notifications: prev.notifications.filter((arr: any) => arr[0] != id),
       };
     });
   };
 
+  const handleNotificationClick = () => {
+    setNotificationClicked((prev) => !prev);
+  };
+
+  const handleRemoveSavedNotifications = (id: number) => {
+    setSavedNotifications((prev: any) => {
+      return {
+        ...prev,
+        notifications: prev.notifications.filter((arr: any) => arr[0] != id),
+      }
+    })
+  }
+ 
+  const handleSaveNotification = (msg: string) => {
+    const Notify = <SavedNotificationWindow value={msg} handleClick={() => handleRemoveSavedNotifications(savedNotifications.id)}/>
+    setSavedNotifications((prev: any) => {
+      return {id: prev.id + 1, notifications: [...prev.notifications, [prev.id, Notify]]};
+    })
+  } 
+
   if (isReplace) {
     return (
       <div className="container">
-        <NavBar/>
+        <NavBar
+          clicked={notificationClicked}
+          handleClick={handleNotificationClick}
+          notifications={savedNotifications.notifications.map((arr: any[]) => arr[1])}
+        />
         <Board
           State={State}
           handleClick={handleClick}
@@ -229,7 +258,11 @@ function App() {
     let reversed = [...Turn.notifications].reverse().map((arr) => arr[1]);
     return (
       <>
-        <NavBar/>
+        <NavBar
+          clicked={notificationClicked}
+          handleClick={handleNotificationClick}
+          notifications={savedNotifications.notifications.map((arr: any[]) => arr[1])}
+        />
         <Board
           State={State}
           handleClick={handleClick}

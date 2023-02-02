@@ -8,7 +8,8 @@ const Mover = (
   unhighlight: string[],
   handlePawnRender: any,
   Turn: any,
-  handleNotifications: any
+  handleNotifications: any,
+  saveNotifications: any,
 ) => {
   let newState: any = { ...State };
 
@@ -31,8 +32,9 @@ const Mover = (
     // if the king is not under attack then move
     return newState;
   } else {
-    return () => AddNotification("the king is under attack", Turn, () => handleNotifications(Turn.id));
+    return () => AddNotification("the king is under attack", Turn, () => handleNotifications(Turn.id), saveNotifications);
   }
 };
+
 
 export default Mover;

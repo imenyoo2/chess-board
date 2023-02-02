@@ -13,12 +13,47 @@ const Navbar = styled.div`
   left: 0;
 `;
 
-export default function NavBar() {
+const Window = styled.div`
+  background-color: #100720;
+  width: 200px;
+  height: 250px;
+  position: fixed;
+  top: 35px;
+  right: 5px;
+  overflow: scroll;
+  color: white;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+type NavBarType = {
+  clicked: boolean;
+  handleClick: () => void;
+  notifications: any[];
+};
+
+export default function NavBar({
+  clicked,
+  handleClick,
+  notifications,
+}: NavBarType) {
   return (
     <Navbar>
       <div className="NotificationIcon">
-        <Notification />
+        <Notification onClick={handleClick} />
+        {clicked && <NotificationWindow notifications={notifications} />}
       </div>
     </Navbar>
   );
 }
+
+type NotificationWindowType = {
+  notifications: any[];
+};
+
+const NotificationWindow = ({ notifications }: NotificationWindowType) => {
+  console.log(notifications);
+  return <Window>{notifications}</Window>;
+};
