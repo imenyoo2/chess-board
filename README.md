@@ -9,7 +9,7 @@
 - `npm start`
 
 ## screenshots
-[1](./public/screenshots/screenshot_20220822_175911.png)
-[2](./public/screenshots/screenshot_20220822_180330.png)
-[3](./public/screenshots/screenshot_20220822_180356.png)
-[4](./public/screenshots/screenshot_20220822_180459.png)
+![1](./public/screenshots/screenshot_20220822_175911.png)
+![2](./public/screenshots/screenshot_20220822_180330.png)
+![3](./public/screenshots/screenshot_20220822_180356.png)
+![4](./public/screenshots/screenshot_20220822_180459.png)
